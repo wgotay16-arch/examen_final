@@ -1,0 +1,71 @@
+
+<odoo>
+
+    <!-- Vista de lista -->
+    <record id="view_unicah_prestamo_list" model="ir.ui.view">
+        <field name="name">unicah.prestamo.list</field>
+        <field name="model">unicah.prestamo</field>
+        <field name="arch" type="xml">
+            <list string="Préstamos UNICAH">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_devolucion"/>
+                <field name="dias_prestamo"/>
+                <field name="estado"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="view_unicah_prestamo_form" model="ir.ui.view">
+        <field name="name">unicah.prestamo.form</field>
+        <field name="model">unicah.prestamo</field>
+        <field name="arch" type="xml">
+            <form string="Préstamo de equipo">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="estado"/>
+                        </group>
+                        <group>
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_devolucion"/>
+                            <field name="dias_prestamo" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="observaciones"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_unicah_prestamo" model="ir.actions.act_window">
+        <field name="name">Préstamos UNICAH</field>
+        <field name="res_model">unicah.prestamo</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menú principal -->
+    <menuitem
+        id="menu_unicah_prestamos_root"
+        name="Préstamos UNICAH"
+        sequence="30"
+        groups="base.group_user"
+    />
+
+    <!-- Submenú -->
+    <menuitem
+        id="menu_unicah_prestamos"
+        name="Préstamos de equipos"
+        parent="menu_unicah_prestamos_root"
+        action="action_unicah_prestamo"
+        sequence="10"
+    />
+
+</odoo>
