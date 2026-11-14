@@ -1,0 +1,56 @@
+<odoo>
+
+    <!-- Vista de lista -->
+    <record id="tienda_convenio_view_list" model="ir.ui.view">
+        <field name="name">tienda.convenio.list</field>
+        <field name="model">tienda.convenio</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+                <field name="tipo_cliente" />
+                <field name="porcentaje" />
+                <field name="fecha_inicio" />
+                <field name="fecha_fin" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="tienda_convenio_view_form" model="ir.ui.view">
+        <field name="name">tienda.convenio.form</field>
+        <field name="model">tienda.convenio</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="tipo_cliente" />
+                            <field name="porcentaje" />
+                        </group>
+                        <group>
+                            <field name="fecha_inicio" />
+                            <field name="fecha_fin" />
+                            <field name="active" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para abrir los convenios -->
+    <record id="tienda_convenio_action" model="ir.actions.act_window">
+        <field name="name">Convenios</field>
+        <field name="res_model">tienda.convenio</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menú en Ventas > Configuración -->
+    <menuitem id="tienda_convenio_menu"
+        name="Convenios UNICAH"
+        parent="sale.menu_sale_config"
+        action="tienda_convenio_action"
+        sequence="50" />
+
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+    <record id="view_partner_form_tienda_unicah" model="ir.ui.view">
+        <field name="name">res.partner.form.tienda.unicah</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="unicah" string="UNICAH">
+                    <group>
+                        <field name="tipo_cliente" />
+                        <field name="numero_cuenta"
+                            invisible="tipo_cliente != 'estudiante'"
+                            required="tipo_cliente == 'estudiante'" />
+                        <field name="carrera"
+                            invisible="tipo_cliente != 'estudiante'" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,28 @@
+<odoo>
+    <record id="view_order_form_tienda_unicah" model="ir.ui.view">
+        <field name="name">sale.order.form.tienda.unicah</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_aplicar_convenio"
+                    string="Aplicar convenio"
+                    type="object"
+                    invisible="not convenio_id or convenio_aplicado or state not in ('draft', 'sent')"
+                />
+            </xpath>
+
+            <xpath expr="//group[@name='partner_details']" position="inside">
+                <field name="tipo_cliente" />
+                <field name="convenio_id"
+                    readonly="convenio_aplicado" />
+                <field name="convenio_aplicado"
+                    invisible="1" />
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
