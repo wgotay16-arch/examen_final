@@ -29,6 +29,33 @@ class SaleOrder(models.Model):
     )
 
 
+    monto_ahorro = fields.Monetary(
+        string="Ahorro por convenio",
+        compute="_compute_monto_ahorro",
+        store=True,
+        currency_field="currency_id",
+    )
+
+
+    @api.depends(
+        "order_line.price_unit",
+        "order_line.product_uom_qty",
+        "order_line.discount",
+        "order_line.display_type",
+    )
+    def _compute_monto_ahorro(self):
+        for order in self:
+            order.monto_ahorro = sum(
+                line.price_unit
+                * line.product_uom_qty
+                * line.discount / 100
+                for line in order.order_line
+                if not line.display_type
+            )
+
+
+
+
     def action_confirm(self):
         for order in self:
             if order.tipo_cliente == "estudiante":

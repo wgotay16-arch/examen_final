@@ -17,12 +17,47 @@
 
             <xpath expr="//group[@name='partner_details']" position="inside">
                 <field name="tipo_cliente" />
-                <field name="convenio_id"
-                    readonly="convenio_aplicado" />
-                <field name="convenio_aplicado"
-                    invisible="1" />
+                <field name="convenio_id" readonly="convenio_aplicado"/>
+                <field name="monto_ahorro" invisible="monto_ahorro &lt;= 0"/>
+                <field name="convenio_aplicado" invisible="1"/>
+
             </xpath>
 
         </field>
     </record>
+
+    <record id="sale_order_tree_tienda_unicah" model="ir.ui.view">
+        <field name="name">sale.order.list.tienda.unicah</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="convenio_id"/>
+                <field name="monto_ahorro" sum="Total ahorro"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter_tienda_unicah" model="ir.ui.view">
+        <field name="name">sale.order.search.tienda.unicah</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+
+            <filter name="my_sale_orders_filter" position="after">
+                <filter name="con_convenio"
+                        string="Con convenio"
+                        domain="[('convenio_aplicado', '=', True)]"/>
+            </filter>
+
+            <filter name="customer" position="after">
+                <filter name="agrupar_convenio"
+                        string="Convenio"
+                        context="{'group_by': 'convenio_id'}"/>
+            </filter>
+
+        </field>
+    </record>
+
+
 </odoo>
