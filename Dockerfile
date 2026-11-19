@@ -13,7 +13,8 @@ EXPOSE 8069
 
 ENTRYPOINT []
 
-CMD ["sh", "-c", "exec odoo --db_host=\"$HOST\" --db_port=\"${DB_PORT:-5432}\" --db_user=\"$USER\" --db_password=\"$PASSWORD\" -d odoo_unicah --http-interface=0.0.0.0 --http-port=8069 --workers=0 --max-cron-threads=0 --proxy-mode"]
+CMD ["sh", "-c", "odoo --db_host=\"$HOST\" --db_port=\"${DB_PORT:-5432}\" --db_user=\"$USER\" --db_password=\"$PASSWORD\" -d odoo_unicah -i base --without-demo=all --stop-after-init --workers=0 --max-cron-threads=0 --no-http && exec odoo --db_host=\"$HOST\" --db_port=\"${DB_PORT:-5432}\" --db_user=\"$USER\" --db_password=\"$PASSWORD\" -d odoo_unicah --http-interface=0.0.0.0 --http-port=8069 --workers=0 --max-cron-threads=0 --proxy-mode"]
+
 
 
 
